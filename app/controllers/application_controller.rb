@@ -13,8 +13,13 @@ class ApplicationController < Sinatra::Base
 
   post '/recipes' do
     recipe = Recipe.create(params)
-    redirect "recipes/#{recipe.id}"
+    redirect "/recipes/#{@recipe.id}"
   end
+
+  # post '/recipes' do  #creates a recipe
+  #   @recipe = Recipe.create(params)
+  #   redirect to "/recipes/#{@recipe.id}"
+  # end
 
   # READ =========================
 
@@ -27,10 +32,13 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+
+
   get '/recipes/:id' do
     @recipe = Recipe.find(params[:id])
     erb :show
   end
+
 
 #   get '/recipes/:id' do  #loads show page
 #   @recipe = Recipe.find_by_id(params[:id])
@@ -56,14 +64,14 @@ class ApplicationController < Sinatra::Base
     redirect "/recipes/#{@recipe.id}"
   end
 
-  patch '/recipes/:id' do  #updates a recipe
-    @recipe = Recipe.find_by_id(params[:id])
-    @recipe.name = params[:name]
-    @recipe.ingredients = params[:ingredients]
-    @recipe.cook_time = params[:cook_time]
-    @recipe.save
-    redirect to "/recipes/#{@recipe.id}"
-  end
+  # patch '/recipes/:id' do  #updates a recipe
+  #   @recipe = Recipe.find_by_id(params[:id])
+  #   @recipe.name = params[:name]
+  #   @recipe.ingredients = params[:ingredients]
+  #   @recipe.cook_time = params[:cook_time]
+  #   @recipe.save
+  #   redirect to "/recipes/#{@recipe.id}"
+  # end
 
   #
   # # DELETE =========================
@@ -80,10 +88,7 @@ class ApplicationController < Sinatra::Base
 
 
 
-post '/recipes' do  #creates a recipe
-  @recipe = Recipe.create(params)
-  redirect to "/recipes/#{@recipe.id}"
-end
+
 
 delete '/recipes/:id/delete' do #delete action
 @recipe = Recipe.find_by_id(params[:id])
